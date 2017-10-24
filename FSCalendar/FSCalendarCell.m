@@ -261,7 +261,7 @@
     }
     
     for(EKEvent *event in _events){
-        FSCalendarEventView *eventView = [FSCalendarEventView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 13);
+        FSCalendarEventView *eventView = [[FSCalendarEventView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 13)];
         [self.eventsStackView addArrangedSubview:eventView];
         eventView.event = event;
     }
