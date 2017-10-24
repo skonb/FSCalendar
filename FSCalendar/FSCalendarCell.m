@@ -11,6 +11,7 @@
 #import "FSCalendarExtensions.h"
 #import "FSCalendarDynamicHeader.h"
 #import "FSCalendarConstants.h"
+#import "FSCalendarEventView.h"
 
 @interface FSCalendarCell ()
 
@@ -85,6 +86,10 @@
     
     self.clipsToBounds = NO;
     self.contentView.clipsToBounds = NO;
+    
+    UIStackView *stackView = [[UIStackView alloc]initWithFrame:CGRectZero];
+    [self.contentView addSubview:stackView];
+    self.eventsStackView = stackView;
     
 }
 
@@ -242,13 +247,24 @@
         _imageView.hidden = !_image;
     }
     
-    if (_eventIndicator.hidden == (_numberOfEvents > 0)) {
-        _eventIndicator.hidden = !_numberOfEvents;
-    }
-    
+    _eventIndicator.hidden = YES;
     _eventIndicator.numberOfEvents = self.numberOfEvents;
     _eventIndicator.color = self.colorsForEvents;
 
+    [self configureEvents];
+}
+
+-(void)configureEvents{
+ 
+    for(UIView *v in _eventsStackView.arrangedSubviews){
+        [_eventsStackView removeArrangedSubview:v];
+    }
+    
+    for(EKEvent *event in _events){
+        FSCalendarEventView *eventView = [FSCalendarEventView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 13);
+        [self.eventsStackView addArrangedSubview:eventView];
+        eventView.event = event;
+    }
 }
 
 - (UIColor *)colorForCurrentStateInDictionary:(NSDictionary *)dictionary

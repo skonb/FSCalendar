@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@import EventKit;
 @class FSCalendar, FSCalendarAppearance, FSCalendarEventIndicator;
 
 typedef NS_ENUM(NSUInteger, FSCalendarMonthPosition);
@@ -44,6 +44,15 @@ typedef NS_ENUM(NSUInteger, FSCalendarMonthPosition);
  */
 @property (weak, nonatomic) FSCalendarEventIndicator *eventIndicator;
 
+
+
+@property (weak, nonatomic) UIStackView *eventsStackView;
+/**
+ EKEvents to show in this cell.
+ */
+@property (copy, nonatomic) NSArray<EKEvent *> *events;
+
+
 /**
  A boolean value indicates that whether the cell is "placeholder". Default is NO.
  */
@@ -57,6 +66,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarMonthPosition);
 @property (strong, nonatomic) NSString *subtitle;
 @property (strong, nonatomic) UIImage  *image;
 @property (assign, nonatomic) FSCalendarMonthPosition monthPosition;
+
 
 @property (assign, nonatomic) NSInteger numberOfEvents;
 @property (assign, nonatomic) BOOL dateIsToday;
